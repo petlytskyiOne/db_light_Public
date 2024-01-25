@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #282c35;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #taskForm {
+            background-color: #3e424b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        #taskInput {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        #taskList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .taskItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4a4e57;
+            padding: 8px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .taskItem.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .taskItem input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .deleteButton {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="taskForm">
+        <h2>Task Manager</h2>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var taskList = document.getElementById("taskList");
+
+            if (taskInput.value.trim() === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            var newTask = document.createElement("li");
+            newTask.className = "taskItem";
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.onclick = function() {
+                newTask.classList.toggle("completed");
+            };
+            newTask.appendChild(checkbox);
+
+            var taskText = document.createElement("span");
+            taskText.textContent = taskInput.value;
+            newTask.appendChild(taskText);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.className = "deleteButton";
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function() {
+                taskList.removeChild(newTask);
+            };
+            newTask.appendChild(deleteButton);
+
+            taskList.appendChild(newTask);
+
+            // Clear the input field
+            taskInput.value = "";
+        }
+    </script>
+
+</body>
+</html>
+
+

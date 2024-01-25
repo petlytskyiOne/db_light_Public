@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body{
+background-color: #001e2b;
+color: #B8C4C2;
+font-size: 24px;
+}
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #415262;}
+
+#customers tr:hover {background-color: #0d62b7;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #344e65;
+  color: white;
+}
+ pre {
+            background-color: #344e65;
+            padding: 10px;
+            border: 1px solid #ccc;
+            white-space: pre-wrap; /* Для підтримки переносу рядків */
+            font-size: 14px;
+        }
+.copyButton {
+            cursor: pointer;
+            background-color: #13558e;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+</style>
+</head>
+<body>
+<!-- 
+https://www.youtube.com/watch?v=5uiBQy3RveY
+https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_lists_avatar 
+-->
+<h1>Command</h1>
+<table id="customers">
+  <h2><b>Data selection:</b></h2>
+  <tr>
+    <th>Method</th>
+    <th>Code</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>"use"</td>
+    <td>use my_data</td>
+    <td>create a database</td>
+  </tr>
+  <tr>
+    <td>createCollection</td>
+    <td>db.createCollection("mycollection")</td>
+    <td>collections are created automatically when you insert the first document</td>
+  </tr>
+  <tr>
+    <td>.find</td>
+    <td>db.my_data.find()</td>
+    <td>prints all data from the database "data"</td>
+  </tr>
+   <tr>
+    <td>.find</td>
+    <td>db.my_data.find({ege: 22, email:test@test.com}, {_id: 0})</td>
+    <td>data selection by two indicators</td>
+  </tr>
+   <tr>
+    <td>.find "$or"</td>
+    <td>db.my_data.find({$or: [{ege: 21}, {email: "test@test.com"}]}, {_id: 0})</td>
+    <td>selection of data from two "or"</td>
+  </tr>
+  <tr>
+    <td>.find .sort"</td>
+    <td>db.my_data.find({}, {_id:0}).sort({age:1, email:-1})</td>
+    <td>sort function by "age" field in ascending order 1,descending order -1</td>
+  </tr>
+  <tr>
+    <td>.find .limit</td>
+    <td>db.my_data.find({}, {_id: 0}).limit(2)</td>
+    <td>display only the first two records and do not show the id</td>
+  </tr>
+      <tr>
+    <td>.find "$or", "$lt"</td>
+    <td>db.my_data.find({$or: [{ege: {$lt: 38}, {email: "test@test.com"}]}, {_id: 0}).sort({age: 1})</td>
+    <td>$lt: less than number<br>
+        $gt: more than number<br>
+        $gte: greater than or equal to this number<br>
+        $eq: is exactly this number <br>
+        $ne: is not equal to this number
+      </td>
+  </tr>
+  <tr>
+    <td>.find "$in"</td>
+    <td>db.my_data.find({name: {$in: ["jack", "John", "Bob"]}}, {_id: 0})</td>
+    <td>$in:  selection of objects that match these characteristics <br>
+        $nin: selection of objects that do not match these characteristics
+    </td>
+  </tr>
+</table>
+<br>
+<table id="customers">
+  <tr>
+    <th>Execution</th>
+    <th>Command</th>
+    <th>Description</th>
+  </tr>
+   
+  
+   <tr>
+    <td>Documents can be inserted, updated, and deleted from collections.</td>
+    <td>ddb.mycollection.insert({ name: "John", age: 30, city: "New York" })</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Adding a data structure via the terminal</td>
+    <td>db.users.insertOne({"name":John,"email":"petlytskyi@gmail.com","age":23})</td>
+    <td></td>
+  </tr>
+  
+
+  <tr>
+    <td>Update information:</td>
+    <td>db.mycollection.update({ name: "John" }, { $set: { age: 31 } })</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Deleting information:</td>
+    <td>db.mycollection.remove({ name: "John" })</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Sorting and limiting:</td>
+    <td>db.mycollection.find().sort({ name: 1 }).limit(5)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Indexation:</td>
+    <td>db.mycollection.createIndex({ name: 1 })</td>
+    <td></td>
+  </tr>
+   <tr>
+    <td>Aggregation:</td>
+    <td>db.mycollection.aggregate([<br>
+    { $group: { _id: "$city", total: { $sum: 1 } } } <br>
+])</td>
+    <td></td>
+  </tr>
+</table>
+
+<h2>Example code:</h2>
+<button class="copyButton" data-clipboard-target="#code">Copy Code</button>
+<pre id="code"><code>
+  {
+    "_id": ObjectId("5fc49feabe0a9554388eadd7"),
+    "username": "john_doe",
+    "email": "john@example.com",
+    "age": 30,
+    "tasks": [
+        {
+            "taskId": ObjectId("5fc4a008be0a9554388eadd8"),
+            "description": "Complete project A",
+            "completed": false
+        },
+        {
+            "taskId": ObjectId("5fc4a025be0a9554388eadd9"),
+            "description": "Attend meeting at 2 PM",
+            "completed": true
+        }
+    ]
+}
+</code>
+</pre>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script>
+        new ClipboardJS('.copyButton');
+    </script>
+</body>
+</html>
